@@ -1,0 +1,5 @@
+name: Artifact MIME check
+description: Check whether an artifact MIME is accepted by the runtime service
+runs:
+  using: node20
+  main: main.js
