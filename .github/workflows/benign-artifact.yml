@@ -1,0 +1,19 @@
+name: Benign artifact access probe
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Write harmless probe file
+        run: printf '{"probe":"public-access"}\n' > probe.json
+      - name: Upload ordinary ZIP artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: benign-probe
+          path: probe.json
