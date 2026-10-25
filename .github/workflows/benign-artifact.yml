@@ -11,9 +11,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Write harmless probe file
-        run: printf '{"probe":"public-access"}\n' > probe.json
+        run: |
+          printf '{"probe":"public-access"}\n' > probe.json
+          cp probe.json probe.txt
       - name: Upload ordinary ZIP artifact
         uses: actions/upload-artifact@v4
         with:
           name: benign-probe
           path: probe.json
+      - name: Upload unarchived JSON
+        uses: actions/upload-artifact@v7
+        with:
+          name: probe.json
+          path: probe.json
+          archive: false
+      - name: Upload unarchived text
+        uses: actions/upload-artifact@v7
+        with:
+          name: probe.txt
+          path: probe.txt
+          archive: false
