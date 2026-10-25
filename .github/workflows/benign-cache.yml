@@ -1,0 +1,21 @@
+name: Benign cache API probe
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  save:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prepare marker
+        run: |
+          mkdir -p cache-data
+          printf '{"probe":"cache-api"}\n' > cache-data/marker.json
+      - name: Save marker cache
+        uses: actions/cache/save@v6
+        with:
+          path: cache-data
+          key: benign-cache-${{ github.run_id }}-${{ github.run_attempt }}
